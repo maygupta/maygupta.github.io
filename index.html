@@ -1,0 +1,379 @@
+<html>
+  <head>
+    <!-- Jquery is included here and available for use -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <!-- some basic styles for game setup -->
+    <style>
+
+      html {
+        margin-left: 80px;
+        margin-right: 80px;
+      }
+
+      tr {
+        margin-top: 20px;
+      }
+
+      td {
+        width: 44%;
+      }
+
+      img {
+        height: 180px;
+        width: 120px;
+        float: left;
+      }
+
+      .turn-red {
+        background-color: red;
+      }
+
+      .turn-blue {
+        background-color: blue;
+      }
+
+      .title {
+        font-size: larger;
+        color: brown;
+        font-weight: bold;
+        margin: 10px 10px 10px 10px;
+      }
+
+      .desc {
+        margin-left: 130px;
+        margin-top: 10px;
+        color: grey;
+        margin-bottom: 10px;
+        min-height: 115px;
+      }
+
+      .cat {
+        margin-left: 130px;
+        color: grey;
+        font-size: 16px;
+        font-style: italic;
+      }
+
+      .price {
+        float: right;
+        margin-right: 10px;
+        color: white;
+        background: #c96821;
+        padding: 6px 6px 6px 6px;
+        border-radius: 3px;
+      }
+
+      .content {
+        margin-top: 20px;
+        margin-right: 40px;
+      }
+    
+    </style>
+  </head>
+  
+  <body>
+    <table id="container"></table>
+  </body>
+</html>
+
+<script type="text/javascript">
+
+  contents = [
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/08/en-bg.jpg",
+      name: "Bhagavad-gita As It Is",
+      price: 14.95,
+      description: " The Bhagavad-gita is the compact essence of all spiritual philosophy revealed in a most unlikely setting, at the onset of a world war that occurred nearly 5000 years ago. The warrior Arjuna asks his friend Krishna about the purpose of life, the difference between the self and the body. Krishna teaches that the essence of the yoga system and the ultimate goal of all pious works, meditation, and austerity is to develop an attitude of loving service to the Supreme Person.",
+      categories: "Philosophy, History"
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/01/CBH.jpg",
+      name: "Chant and Be Happy",
+      price: 2.99,
+      description: "The book “Chant and Be Happy” contains a conversation between the Hare Krishna movement’s founder Srila Prabhupada, John Lennon, George Harrison, and Yoko Ono on what makes a mantra genuine and effective. It also discusses the scriptural origin of the mantra, as well as step-by-step instructions for chanting.",
+      categories: "Philosophy"
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/08/bhagavatam_big.jpg",
+      name: "Srimad Bhagavatam",
+      price: 275.00,
+      description: "Srimad-Bhagavatam, an epic philosophical and literary classic, holds a prominent position in India’s voluminous written wisdom. This ancient text touches upon all fields of human knowledge, and is also a spiritual encyclopedia.",
+      categories: "Religion, Philosophy, History, Arts and Culture"
+    },
+    {
+      name: "Laghu Bhagvatamrta", 
+      image: "http://bbtacademic.com/wp-content/uploads/2016/08/LBA.jpg", 
+      description: "Srila Rupa Gosvami composed Laghu-bhagavatamrta as a sequel to Brhad-bhagavatamrta, highlighting the Lord Himself. In one sense, then, the Laghu-bhagavatamrta is the creme de la creme of the Vedas, in that it focuses on the essential and primary truth known as sambandha-jnana, preliminary understanding of the relationship between God and all his emanations.", 
+      categories: "Philosophy, Arts and Culture", 
+      tags: "",
+      price: 19.95
+    },
+    {
+      name: "Hiding in Unnatural Happiness", 
+      image: "http://bbtacademic.com/wp-content/uploads/2016/08/51PwvnDgPGL._SX331_BO1204203200_.jpg", 
+      description: "Is the hunt for sustainable contentment just confusion – a kaleidoscope of diverse illusion? Drawing upon the ancient yoga science of the self, Hiding in Unnatural Happiness probes our contemporary approach to the fulfillment and progress, and recommends another road, less traveled but timeless.", 
+      categories: "Philosophy", 
+      tags: "",
+      price: 9.95
+    },
+    {
+      name: "Sri Krishna Lila Stava", 
+      image: "http://bbtacademic.com/wp-content/uploads/2016/08/51ApisG5cYL._SX325_BO1204203200_.jpg", 
+      description: "This edition of the Sri Krsna-lila-stava is especially praiseworthy because it gives a scholarly but easily understandable translation of the Sanskrit text interspersed with helpful and sensitive commentaries.", 
+      categories: "Philosophy, Arts and Culture", 
+      tags: "",
+      price: 24.95
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/08/mukunda-mala-stotra_large-206x300.jpeg",
+      name: "Mukunda-mala-stotra",
+      price: 4.85,
+      categories: "Religion, History, Arts and Culture",
+      description: "The saintly king Kulasekhara, who lived more than a millennium ago in India, composed a string of heartfelt prayers in verse, which are now known as the Mukunda-mala-stotra. In this work, Kulasekhara speaks to us with the fresh voice of truth, the voice of a self-realized soul beseeching the Lord and us with the utmost sincerity."
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/08/51ESPP8verL._SX300_BO1204203200_-182x300.jpg" ,
+      name: "Narada Bhakti Sutra",
+      price: 7.95,
+      description: "Narada Bhakti Sutra is a commentary on the ancient aphorisms about bhakti yoga by the renowned Vedic sage Narada.",
+      categories: "Philosophy, Arts and Culture"
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/08/51N7CTTD0RL._SX306_BO1204203200_-195x300.jpg",
+      name: "Searching for Vedic India",
+      price: 10.00,
+      description: "In this book, the author takes us on a journey into the past, weaving through the rich traditions and ancient culture of India. He reveals the glory of Vedic India that is locked in her literature for the modern reader to appreciate deeply.",
+      categories: "Religion, History, Arts and Culture",
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/08/bs-w-lw-185x300.jpg",
+      name: "Sri Bramha Samhita",
+      price: 5.95,
+      description: "The Brahma Saṁhitā is a Sanskrit poem, composed of verses of prayer spoken by Brahma glorifying the supreme Lord Kṛṣṇa or Govinda at the beginning of creation. It is revered within Gauḍiya Vaiṣṇavism, whose founder, Caitanya Mahāprabhu (1486–1534), re-discovered a part of the work, the 62 verses of Chapter 5 in the 16th Century.",
+      categories: "Religion, History, Arts and Culture"
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/08/1236987-201x300.jpg",
+      name: "The Hidden Glory of India",
+      price: 12.95,
+      description: "The Hidden Glory of India is the premier reference book on Eastern spirituality. Learn about: The ancient texts of India, The power of mantras, Ayurveda: Holistic healing, the mysteries of time and space, Karma and reincarnation, and much more.",
+      categories: "Religion, History, Arts and Culture"
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/08/51BZcdHS8nL.jpg",
+      name: "Chanting Hare Krishna",
+      price: 10.00,
+      description: "Chanting Hare Krishna reveals the science of Mantra Meditation and describes meditation techniques while chanting by giving practical suggestions for improving concentration and controlling the mind.",
+      categories: "Philosophy, Arts and Culture"
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/08/tqk-w-lw.jpg",
+      name: "Teachings of Queen Kunti",
+      price: 7.95,
+      description: "Queen Kunti’s teachings are the simple and illuminating outpourings of the soul of a great and saintly woman, revealing the deepest philosophical and theological penetrations of the intellect.",
+      categories: "Philosophy, History  "
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/08/en_rtw.jpg",
+      name: "Renunciation through Wisdom",
+      price: 5.85,
+      description: "Renunciation Through Wisdom is a collection of essays originally published in Bengali by Srila Prabhupada in India during the 1940s and later translated by his disciples into English. In this book, Srila Prabhupada expands on themes found in the Bhagavad-gita; the ultimate cause of suffering, why are some people averse to God, and how the world’s troubles are fleeting—when seen from the standpoint of eternity. ",
+      categories: "Philosophy"
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/08/RV.jpg",
+      name: "Raja-Vidya: The King of Knowledge",
+      price: 1.99,
+      description: "A collection of transcribed lectures by Srila Prabhupada on the ninth chapter of the Bhagavad-gita, wherein, Krishna tells Arjuna why He’s revealing divine knowledge to him; because Arjuna is free of envy. This book suggests practical ways to enhance our self-knowledge and understanding of the Supreme Person. The result of such knowledge is freedom from the anxieties of this temporary, ever-changing world.",
+      categories: "Philosophy"
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/08/Teachings_of_Lord_Kapiladeva-cover.jpg",
+      name: "Teachings of Lord Kapila",
+      price: 10.00,
+      description: "Teachings of Lord Kapila—complete with original Sanskrit, translations, and purports—deals with such topics as the significance of the guru, the psychology of consciousness, the characteristics of a self-realized person, the science of meditation, the nature of transcendental knowledge, and the process of ultimate liberation.",
+      categories: "Philosophy"
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/08/1036250.jpg",
+      name: "Science of Self-Realization",
+      price: 10.00,
+      description: "The Science of Self Realization is a collection of interviews, lectures, and essays from the Back to Godhead magazine covering topics such as the goal of human life, seeking a true spiritual teacher, reincarnation, super-consciousness, Krishna and Christ, and spiritual solutions to today’s social and economic problems such as war, corruption, environmental destruction, and poverty.",
+      categories: "Philosophy, Arts and Culture"
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/08/9780892132928.jpg",
+      name: "Quest for Enlightenment",
+      price: 5.95,
+      description: "In The Quest for Enlightenment, A. C. Bhaktivedanta Swami Srila Prabhupada, who comes in an unbroken spiritual lineage from Krishna, re-communicates the answers to the perennial questions of purpose that have stirred the hearts of philosophers, while contrasting the views of famous Western philosophers and their approach to philosophy and science.",
+      categories: "Philosophy"
+    },
+    {
+      image: "http://krishna.org/images/Misc/tlc_cover.jpg?x64805",
+      name: "Teachings of Lord Chaitanya",
+      price: 15.95,
+      description: "Teachings of Lord Chaitanya is an introduction to the most advanced and esoteric subjects contained within the Bhakti philosophy, as presented by Chaitanya Mahaprabhu. The text is a summary of the multi-volume biography Chaitanya Charitamrita, which contains some of the most elaborate, technical, esoteric, and ecstatic revelations of the science of God found in any scripture.",
+      categories: "Philosophy"
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/08/BLBH245_1__34447.1420069769.1280.1280.jpg",
+      name: "Krsna: The Supreme Personality of Godhead",
+      price: 15.95,
+      description: "In the Sanskrit language, Krishna means ‘one who is all attractive’. This book teaches how to invoke and develop selfless love by connecting the self to the Supreme self, also known as Krishna in the Vedic tradition.",
+      categories: "Religion, Philosophy, History, Arts and Culture"
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/08/jsd.jpg",
+      name: "Journey of Self Discovery",
+      price: 10.00,
+      description: "The Journey of Self-Discovery is a collection of transcribed conversations and lectures by Srila Prabhupada on a variety of subjects, including spiritual economics, superior evolutionary models, the means for achieving global unity, overcoming scarcity, and predictions of the future state of the world.",
+      categories: "Philosophy"
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/07/the-nectar-of-devotion.jpg",
+      name: "Nectar of Devotion",
+      price: 12.95,
+      description: "The Nectar of Devotion is a summary study of the Bhakti-rasamrta-sindhu, Srila Rupa Gosvami’s literary masterpiece. This is a retelling of the essence of a devotional classic composed in Sanskrit that describes the complete science of bhakti-yoga, i.e., linking with the Supreme through transcendental loving devotion.",
+      categories: "Philosophy"
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/07/cover_iso_pb_0.png",
+      name: "Sri Isopanisad",
+      price: 2.99,
+      description: "Sri Isopanisad is one of the principal Upanishads in Vedic literature that present the ultimate philosophical conclusions of these scriptures. This cornerstone scripture expounds on the relationship and responsibility of a living being with other living beings and the Supreme Being. ",
+      categories: "Philosophy"
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/07/LotB.png",
+      name: "Light of The Bhagavata",
+      price: 7.95,
+      description: "“Light of The Bhagavata” provides a unique perspective in understanding nature through the lens of the Vedic philosophy and reveals many instructive lessons through a commentary on natural phenomena.",
+      categories: "Philosophy, Arts and Culture"
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/07/OFBcover.jpeg",
+      name: "Our Family Business",
+      price: 10.00,
+      description: "Our Family Business excitingly weaves anecdotes, narrative, concepts, and compelling arguments that assert the spiritual and pragmatic significance of distribution of the ancient spiritual literature of India via the Hare Krishna movement (ISKCON), and is thus, a must-read for historians as well as students of theology, religion, philosophy, and culture.",
+      categories: "Philosophy, History, Arts and Culture"
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/07/Dharma.jpg",
+      name: "Dharma: The Way of Transcendence",
+      price: 7.95,
+      description: "This simple book explains “dharma” unambiguously and highlights the ultimate “dharma” according to the wisdom of east, by means of which all humanity can achieve all happiness and perfection.",
+      categories: "Philosophy, Arts and Culture"
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/07/Screen-Shot-2016-07-26-at-9.53.51-PM.png",
+      name: "Nectar of Instruction",
+      price: 2.99,
+      description: "A compact guidebook of essential spiritual teachings – “The Nectar of Instruction” is the key to understanding the process of Bhakti Yoga.",
+      categories: "Philosophy"
+    },
+    {
+      image: "http://www.prabhupada.org.uk/images/spb05.jpg",
+      name: "Krsna, The Reservoir of Pleasure",
+      price: 1.95,
+      description: "Since its first publication in 1970, Krishna, the Reservoir of Pleasure, a collection of essays on the personality of God, has been widely distributed by Krishna devotees in many languages and in all parts of the world.",
+      categories: "Philosophy"
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/01/cover_kc-tys_pb.png",
+      name: "Krishna Consciousness: The Topmost Yoga System",
+      price: 1.95,
+      description: "On July 29, 1971, His Divine Grace A.C. Bhaktivedanta Swami Prabhupada delivered a lecture at the University of Florida in Gainesville. Speaking mostly to an audience of young college students.",
+      categories: "Philosophy"
+    },
+    { 
+      image: "http://bbtacademic.com/wp-content/uploads/2016/01/C-Bjpg.jpg",
+      name: "Coming Back",
+      price: 1.95,
+      description: "Coming Back answers these most profound and mysterious of all questions by presenting clear and complete explanations from the world’s most authentic, timeless sources of knowledge on the afterlife.",
+      categories: "Philosophy"
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/01/C-and-T.jpg",
+      name: "Civilization and Transcendence",
+      price: 2.99,
+      description: "In this book, Srila Prabhupada makes a thorough presentation of the ideal Vedic civilization, contrasts with the modern society from the viewpoint of transcendence, and offer practical solutions based on Vedic teachings.",
+      categories: ""
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/01/Beyond-Birth-And-Death.jpg",
+      name: "Beyond Birth and Death",
+      price: 1.95,
+      description: "Beyond Birth and Death was prepared from transcripts of lectures that Srila Prabhupada gave in 1966 on the second and eighth chapters of the Bhagavad-Gita, which begins with this cornerstone teaching: For the self there is neither birth nor death. We’re all eternal spiritual beings, meant to live eternally.",
+      categories: "Religion, Philosophy"
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/01/Beyond-illusion-and-doubt1-600x600.jpg",
+      name: "Beyond Illusion and Doubt",
+      price: 9.95,
+      description: "Beyond Illusion And Doubt is a compilation of conversations between Srila Prabhupada and some of his disciples, comparing Vedic wisdom with Western philosophy.",
+      categories: "Philosophy"
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/01/A_Second_Chance-cover.jpg",
+      name: "A Second Chance",
+      price: 7.95,
+      description: "Near-death experiences (NDEs) are not new phenomena; the Srimad-Bhagavatam, written thousands of years ago recounts the NDE of Ajamila. This book includes the original Bhagavatam verses outlining Ajamila’s NDE, selections from Srila Prabhupada’s published commentary, and excerpts from transcriptions of his lectures during the ’70-71 India tour.",
+      categories: "Philosophy, History"
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/01/Caitanya-caritamrta.jpg",
+      name: "Sri Caitanya Caritamrita",
+      price: 125.00,
+      description: "In the early sixteenth century the West was on one course, the East on another. In India, Sri Caitanya Mahaprabhu was directing people inward, toward a scientific understanding of the highest knowledge of man’s spiritual nature.",
+      categories: "Philosophy, History, Arts and Culture"
+    },
+    {
+      image: "http://bbtacademic.com/wp-content/uploads/2016/08/lilamrta_cover.jpg",
+      name: "Srila Prabhupada Lilamrita",
+      price: 44.95,
+      description: "This book is a detailed sketch of the activities of Srila Prabhupada, which reveals the genuine and universal compassion that he carried within his heart as a pure devotee of God. This book is meant to inspire us by helping us to derive unlimited hope, faith, and determination and sharpen our divine intellect by reflecting on the life and teachings of Swami Prabhupada.",
+      categories: "History, Arts and Culture"
+    },
+    {
+      name: "Brhad Bhagvatamrta Vol 3", 
+      image: "http://www.krishna.com/sites/krishna.com/files/bb3.jpg", 
+      description: "Sri Brihad-bhagavatamrita is an epic work originally composed in Sanskrit during the sixteenth century by Sanatana Goswami, one of Chaitanya Mahaprabhu’s leading disciples. It describes the awe-inspiring personal spiritual journey of a young seeker, who eventually attains perfection and love", 
+      categories: "Philosophy, Religion, Arts and Culture", 
+      tags: "",
+      price: 44.95
+    },
+
+  ]
+
+  var initialize = function() {
+
+    for(let i = 0 ;i < (contents.length+1)/2; i++ ) {
+      
+      let tr = $('<tr>')
+      for(let j = 0 ;j < 2 && contents[i*2 + j]; j++ ) {
+        let td = $('<td>').attr('valign', 'top')
+        let div = $('<div>').addClass('content')
+        let nameSpan = $('<span>').addClass('title').text(contents[i*2 + j].name)
+        
+        let imgSpan = $('<span>')
+        let image = $('<img>').attr('src',contents[i*2 + j].image)
+        imgSpan.append(image)
+
+        let descDiv = $('<div>').addClass('desc').text(contents[i*2 + j].description)
+
+        let catDiv = $('<div>').addClass('cat')
+        //catDiv.append($('<span>').text("Categories:"))
+        catDiv.append($('<span>').text(contents[i*2 + j].categories))
+
+        let priceDiv = $('<div>').addClass('price').text('$' + contents[i*2 + j].price)
+        
+        div.append(nameSpan).append(imgSpan).append(descDiv).append(priceDiv).append(catDiv)
+        td.append(div)
+        tr.append(td)
+      }
+      $('#container').append(tr)
+    }
+  }
+
+  initialize();
+</script>
